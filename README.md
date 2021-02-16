@@ -1,5 +1,5 @@
-## MODBUS CONTROLLER
+# MODBUS CONTROLLER
 
-# Dependencies:
+### Dependencies:
 * Qt5
 * pymodbus
