@@ -128,7 +128,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def open_file(self):
         # Open file dialogline.rstrip('\n')
         dialog = QtWidgets.QFileDialog()
-        file_path = dialog.getOpenFileName(self, 'Open queue','' , "Queue list (*.txt *.que)")
+        file_path = dialog.getOpenFileName(self, 'Open queue','' , "Queue list (*.que)")
         if( len(file_path[0]) != 0 ):
             print(f'Loading file: {file_path[0]}')
             self.QueueList.clear()
@@ -140,7 +140,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def save_file(self):
         dialog = QtWidgets.QFileDialog()
-        file_path = dialog.getSaveFileName(self, 'Save queue','' , "Queue list (*.txt *.que)")
+        file_path = dialog.getSaveFileName(self, 'Save queue','' , "Queue list (*.que)")
         if( len(file_path[0]) != 0 ):
             print(f'Saving to file: {file_path[0]}')
             # Create or overwrite file
