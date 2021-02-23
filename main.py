@@ -76,10 +76,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.PlusButton.clicked.connect(lambda: modbus.write_coil(7106, 1))
         self.MinusButton.clicked.connect(lambda: modbus.write_coil(7107, 1))
         self.QueueButton.clicked.connect(self.Queue_Add)
-        self.LoadQueueButton.clicked.connect(self.dg)
-        self.SaveQueueButton.clicked.connect(self.dg)
-        self.StartQueueButton.clicked.connect(self.dg)
-        self.StopQueueButton.clicked.connect(self.dg)
+        self.LoadQueueButton.clicked.connect(self.open_file)
+        self.SaveQueueButton.clicked.connect(self.save_file)
+        #self.StartQueueButton.clicked.connect(self.dg)
+        #self.StopQueueButton.clicked.connect(self.dg)
 
         # Initialize Robot States
         for x in range(len(states_name)):
@@ -124,10 +124,31 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.RegistersReadData.addItem(self.codes_item)
             self.RegistersReadName.addItem(self.names_item)
 
-    def dg(self):
-        new = QtWidgets.QFileDialog()
-        test = new.getOpenFileName()
-        print(test)
+
+    def open_file(self):
+        # Open file dialogline.rstrip('\n')
+        dialog = QtWidgets.QFileDialog()
+        file_path = dialog.getOpenFileName(self, 'Open queue','' , "Queue list (*.txt *.que)")
+        if( len(file_path[0]) != 0 ):
+            print(f'Loading file: {file_path[0]}')
+            self.QueueList.clear()
+            # Read file and load
+            file = open(file_path[0], "r")
+            for line in file:
+                self.QueueList.addItem(line.rstrip('\n'))
+            file.close()
+
+    def save_file(self):
+        dialog = QtWidgets.QFileDialog()
+        file_path = dialog.getSaveFileName(self, 'Save queue','' , "Queue list (*.txt *.que)")
+        if( len(file_path[0]) != 0 ):
+            print(f'Saving to file: {file_path[0]}')
+            # Create or overwrite file
+            file = open(file_path[0], "w")
+            for i in range(self.QueueList.count()):
+                file.write(f'{self.QueueList.item(i).text()}\n')
+            file.close()
+
 
     # Connect button
     def connection(self):
