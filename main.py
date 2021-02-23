@@ -142,10 +142,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         dialog = QtWidgets.QFileDialog()
         file_path = dialog.getSaveFileName(self, 'Save queue','' , "Queue list (*.que)")
         if( len(file_path[0]) != 0 ):
-            path = ''.join((file_path[0], '.que'))
-            print(f'Saving to file: {path}')
+            print(f'Saving to file: {file_path[0]}')
             # Create or overwrite file
-            file = open(path, "w")
+            file = open(file_path[0], "w")
             for i in range(self.QueueList.count()):
                 file.write(f'{self.QueueList.item(i).text()}\n')
             file.close()
