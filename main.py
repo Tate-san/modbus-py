@@ -75,7 +75,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.StopButton.clicked.connect(lambda: modbus.write_coil(7105, 1))
         self.PlusButton.clicked.connect(lambda: modbus.write_coil(7106, 1))
         self.MinusButton.clicked.connect(lambda: modbus.write_coil(7107, 1))
+        self.QueueButton.clicked.connect(self.Queue_Add)
         self.LoadQueueButton.clicked.connect(self.dg)
+        self.SaveQueueButton.clicked.connect(self.dg)
+        self.StartQueueButton.clicked.connect(self.dg)
+        self.StopQueueButton.clicked.connect(self.dg)
 
         # Initialize Robot States
         for x in range(len(states_name)):
@@ -83,7 +87,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.state_item = QtWidgets.QListWidgetItem(states_name[x])
             # Set font size
             font = QtGui.QFont()
-            font.setPointSize(20)
+            font.setPointSize(12)
             self.state_item.setFont(font)  
             # Add item to widget list & add Checkbox  
             self.StateList.addItem(self.state_item)
@@ -97,7 +101,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.code_name_item = QtWidgets.QListWidgetItem('')
             # Set font size
             font = QtGui.QFont()
-            font.setPointSize(15)
+            font.setPointSize(12)
             self.codes_item.setFont(font)
             self.code_name_item.setFont(font)
             self.names_item.setFont(font)
@@ -113,7 +117,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.names_item = QtWidgets.QListWidgetItem(read_codes_name[x])
             # Set font size
             font = QtGui.QFont()
-            font.setPointSize(15)
+            font.setPointSize(12)
             self.codes_item.setFont(font)  
             self.names_item.setFont(font)
             # Add item to widget list 
@@ -144,6 +148,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.ConnectButton.setProperty('text', 'Connect')
             self.reset_values()
 
+
+
+    def Queue_Add(self):
+        # add items to queue list
+        self.QueueList.addItem(f'{self.DeviceCode.currentRow()} {self.OpCode.currentRow()} {self.OpData1.currentRow()} {self.OpData2.currentRow()} {self.OpData3.value()}')
 
     def Set_Data(self):
         # save data to array
