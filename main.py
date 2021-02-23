@@ -1,3 +1,9 @@
+##TODO
+# MANUAL STATE CONTROLLING
+# WORKING QUEUE
+# EITHER GETTING DATA OR OVERWRITING EXISTING ONES
+# GUI IMPROVEMENTS
+
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import QTimer
@@ -46,12 +52,14 @@ read_codes_adds =  [9310,#Op_ErrorID
                     9314,#Op_Data_Read_4
                     9315]#Op_Data_Read_5
 
+
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
         # Main window initialization
         QtWidgets.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
+        self.queue = False
 
         
 
@@ -78,8 +86,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.QueueButton.clicked.connect(self.Queue_Add)
         self.LoadQueueButton.clicked.connect(self.open_file)
         self.SaveQueueButton.clicked.connect(self.save_file)
-        #self.StartQueueButton.clicked.connect(self.dg)
-        #self.StopQueueButton.clicked.connect(self.dg)
+        self.StartQueueButton.clicked.connect(lambda: self.Set_Queue_Flag(True))
+        self.StopQueueButton.clicked.connect(lambda: self.Set_Queue_Flag(False))
 
         # Initialize Robot States
         for x in range(len(states_name)):
@@ -171,10 +179,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.reset_values()
 
 
+    def Set_Queue_Flag(self, state):
+        self.queue = state
 
     def Queue_Add(self):
         # add items to queue list
-        self.QueueList.addItem(f'{self.DeviceCode.currentRow()} {self.OpCode.currentRow()} {self.OpData1.currentRow()} {self.OpData2.currentRow()} {self.OpData3.value()}')
+        self.QueueList.addItem(f'{self.DeviceCode.currentRow()+1} {self.OpCode.currentRow()} {self.OpData1.currentRow()} {self.OpData2.currentRow()} {self.OpData3.value()}')
 
     def Set_Data(self):
         # save data to array
@@ -268,6 +278,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         except Exception as ex:
             print(f'Disconnected: {ex}')
             self.connection()
+
+            
             
 
 
