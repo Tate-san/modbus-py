@@ -25,7 +25,7 @@ play = 7104     # Play/pause
 stop = 7105     # Stop
 error = 7201    # Error or Not
 
-states_name = ['Init_Done', 'Op_Busy', 'Op_Done', 'Op_Error', 'Holder_Present', 'Init_Start', 'Op_Start', 'Op_Reset']
+states_name = ['Init_Done', 'Op_Busy', 'Op_Done', 'Op_Error', 'Holder_Present', 'Init_Start', 'Op_Start', 'Op_Reset', 'Next']
 states_adds =  [9200,#Init done
                 9210,#Op_Busy
                 9211,#Op_Done
@@ -33,7 +33,8 @@ states_adds =  [9200,#Init done
                 9220,#Holder_Present
                 9000,#Init_Start
                 9010,#Op_Start
-                9011]#Op_Reset
+                9011,#Op_Reset
+                next]#Next
                 
 codes_name = ['Dev_code', 'Op_Code', 'Op_Data1', 'Op_Data2', 'Op_Data3', 'Op_Data4', 'Op_Data5']
 codes_adds =   [9110,#Dev_code
