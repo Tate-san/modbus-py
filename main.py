@@ -54,13 +54,15 @@ read_codes_adds =  [9310,#Op_ErrorID
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
+
+
+
     def __init__(self):
         # Main window initialization
         QtWidgets.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
         self.queue = False
-
         
 
         # Select first item in lists
@@ -88,6 +90,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.SaveQueueButton.clicked.connect(self.save_file)
         self.StartQueueButton.clicked.connect(lambda: self.Set_Queue_Flag(True))
         self.StopQueueButton.clicked.connect(lambda: self.Set_Queue_Flag(False))
+        self.StateList.itemClicked.connect(self.change_state)
+        self.InitStartButton.clicked.connect(lambda: modbus.write_coil(9000, 1))
 
         # Initialize Robot States
         for x in range(len(states_name)):
@@ -96,7 +100,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             # Set font size
             font = QtGui.QFont()
             font.setPointSize(12)
-            self.state_item.setFont(font)  
+            self.state_item.setFont(font)
+            # Checkbox aint selectable
+            #self.state_item.setFlags(self.state_item.flags() ^ QtCore.Qt.ItemIsSelectable)
             # Add item to widget list & add Checkbox  
             self.StateList.addItem(self.state_item)
             self.StateList.item(x).setCheckState(QtCore.Qt.Unchecked)
@@ -132,6 +138,20 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.RegistersReadData.addItem(self.codes_item)
             self.RegistersReadName.addItem(self.names_item)
 
+        
+        
+
+
+    def change_state(self, item):
+        try:
+            index = self.StateList.indexFromItem(item).row()
+            if item.checkState() > 0:
+                modbus.write_coil(states_adds[index], True)
+            else:
+                modbus.write_coil(states_adds[index], False)
+        
+        except Exception as ex:
+            print(ex)
 
     def open_file(self):
         # Open file dialogline.rstrip('\n')
@@ -278,9 +298,29 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             print(f'Disconnected: {ex}')
             self.connection()
 
-            
-            
+    def contextMenuEvent(self, event):
+        #print(wevent.pos())
+        #print(QtWidgets.QWidget().widgetAt(event.pos()))
+        contextMenu = QtWidgets.QMenu(self)
+        removeAction = QtWidgets.QAction ("Remove", triggered = self.remove_item)
+        clearAction = QtWidgets.QAction ("Clear", triggered = lambda: self.QueueList.clear())
 
+        contextMenu.addAction(removeAction)
+        contextMenu.addAction(clearAction)
+
+        contextMenu.exec_(self.mapToGlobal(event.pos()))
+
+    def remove_item(self):
+        print('remove item')
+
+
+    def queue_action():
+
+        if self.queue:
+            self.StartQueueButton.setProperty("enabled", False)
+            self.LoadQueueButton.setProperty("enabled", False)
+            if modbus.client.read_discrete_inputs(7202, 1)[0]:
+                pass
 
 # showing window
 if __name__ == "__main__":

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1187</width>
-    <height>670</height>
+    <width>1403</width>
+    <height>666</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -125,7 +125,231 @@
        <string>Data</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_13">
-       <item row="0" column="4">
+       <item row="3" column="6" rowspan="2">
+        <widget class="QSpinBox" name="OpData4">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+          </font>
+         </property>
+         <property name="maximum">
+          <number>10000</number>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="6">
+        <widget class="QSpinBox" name="OpData3">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+          </font>
+         </property>
+         <property name="maximum">
+          <number>10000</number>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="5" rowspan="3">
+        <widget class="QListWidget" name="OpData2">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+          </font>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectItems</enum>
+         </property>
+         <property name="movement">
+          <enum>QListView::Static</enum>
+         </property>
+         <property name="selectionRectVisible">
+          <bool>true</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>0</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>3</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>4</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="2" column="5" rowspan="2">
+        <widget class="QLabel" name="DrawerLabel">
+         <property name="text">
+          <string>Drawer</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6">
+        <widget class="QLabel" name="PosLabel">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>Position</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="6">
+        <widget class="QSpinBox" name="OpData5">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+          </font>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="6">
+        <widget class="QLabel" name="GrabLabel">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>Grab Height</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="4">
+        <widget class="QPushButton" name="NextButton">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+           <pointsize>11</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Next</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2" rowspan="6" colspan="3">
+        <widget class="QListWidget" name="OpCode">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+          </font>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectItems</enum>
+         </property>
+         <property name="movement">
+          <enum>QListView::Static</enum>
+         </property>
+         <property name="selectionRectVisible">
+          <bool>true</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>Invalid operation</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PickUp</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Place</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Tag read</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>IsEmpty</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Calibration</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="1" column="5">
+        <widget class="QListWidget" name="OpData1">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+          </font>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectItems</enum>
+         </property>
+         <property name="movement">
+          <enum>QListView::Static</enum>
+         </property>
+         <property name="selectionRectVisible">
+          <bool>true</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>0</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>2</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="5">
         <widget class="QLabel" name="HotelLabel">
          <property name="font">
           <font>
@@ -134,6 +358,30 @@
          </property>
          <property name="text">
           <string>Hotel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="6">
+        <widget class="QLabel" name="AddLabel">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>Speed [%]</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2" colspan="3">
+        <widget class="QLabel" name="OperationLabel">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>Operation</string>
          </property>
         </widget>
        </item>
@@ -149,50 +397,8 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="2" colspan="2">
-        <widget class="QLabel" name="OperationLabel">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>Operation</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="5">
-        <widget class="QSpinBox" name="OpData5">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-          </font>
-         </property>
-         <property name="maximum">
-          <number>10000</number>
-         </property>
-         <property name="value">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="5">
-        <widget class="QSpinBox" name="OpData3">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-          </font>
-         </property>
-         <property name="maximum">
-          <number>10000</number>
-         </property>
-         <property name="value">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="4">
-        <widget class="QPushButton" name="QueueButton">
+       <item row="7" column="0">
+        <widget class="QPushButton" name="ExecuteButton">
          <property name="font">
           <font>
            <family>Icons</family>
@@ -202,22 +408,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Queue</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="5" rowspan="2">
-        <widget class="QSpinBox" name="OpData4">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-          </font>
-         </property>
-         <property name="maximum">
-          <number>10000</number>
-         </property>
-         <property name="value">
-          <number>0</number>
+          <string>Execute</string>
          </property>
         </widget>
        </item>
@@ -297,59 +488,6 @@
          </item>
         </widget>
        </item>
-       <item row="2" column="4" rowspan="2">
-        <widget class="QLabel" name="DrawerLabel">
-         <property name="text">
-          <string>Drawer</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="4" rowspan="3">
-        <widget class="QListWidget" name="OpData2">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-          </font>
-         </property>
-         <property name="selectionMode">
-          <enum>QAbstractItemView::SingleSelection</enum>
-         </property>
-         <property name="selectionBehavior">
-          <enum>QAbstractItemView::SelectItems</enum>
-         </property>
-         <property name="movement">
-          <enum>QListView::Static</enum>
-         </property>
-         <property name="selectionRectVisible">
-          <bool>true</bool>
-         </property>
-         <item>
-          <property name="text">
-           <string>0</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>4</string>
-          </property>
-         </item>
-        </widget>
-       </item>
        <item row="7" column="1" colspan="2">
         <widget class="QPushButton" name="SetButton">
          <property name="font">
@@ -365,156 +503,31 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="5">
-        <widget class="QLabel" name="GrabLabel">
+       <item row="7" column="5">
+        <widget class="QPushButton" name="QueueButton">
          <property name="font">
           <font>
            <family>Icons</family>
+           <pointsize>11</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
           </font>
          </property>
          <property name="text">
-          <string>Grab Height</string>
+          <string>Queue</string>
          </property>
-        </widget>
-       </item>
-       <item row="1" column="2" rowspan="6" colspan="2">
-        <widget class="QListWidget" name="OpCode">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-          </font>
-         </property>
-         <property name="selectionMode">
-          <enum>QAbstractItemView::SingleSelection</enum>
-         </property>
-         <property name="selectionBehavior">
-          <enum>QAbstractItemView::SelectItems</enum>
-         </property>
-         <property name="movement">
-          <enum>QListView::Static</enum>
-         </property>
-         <property name="selectionRectVisible">
-          <bool>true</bool>
-         </property>
-         <item>
-          <property name="text">
-           <string>Invalid operation</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>PickUp</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Place</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Tag read</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>IsEmpty</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Calibration</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="5" column="5">
-        <widget class="QLabel" name="AddLabel">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>Additional</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="4">
-        <widget class="QListWidget" name="OpData1">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-          </font>
-         </property>
-         <property name="selectionMode">
-          <enum>QAbstractItemView::SingleSelection</enum>
-         </property>
-         <property name="selectionBehavior">
-          <enum>QAbstractItemView::SelectItems</enum>
-         </property>
-         <property name="movement">
-          <enum>QListView::Static</enum>
-         </property>
-         <property name="selectionRectVisible">
-          <bool>true</bool>
-         </property>
-         <item>
-          <property name="text">
-           <string>0</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
         </widget>
        </item>
        <item row="7" column="3">
-        <widget class="QPushButton" name="NextButton">
+        <widget class="QPushButton" name="InitStartButton">
          <property name="font">
           <font>
            <family>Icons</family>
            <pointsize>11</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
           </font>
          </property>
          <property name="text">
-          <string>Next</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0">
-        <widget class="QPushButton" name="ExecuteButton">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-           <pointsize>11</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Execute</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="5">
-        <widget class="QLabel" name="PosLabel">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>Position</string>
+          <string>Init_Start</string>
          </property>
         </widget>
        </item>
@@ -753,10 +766,10 @@ Pause</string>
        <item row="0" column="0">
         <widget class="QListWidget" name="StateList">
          <property name="selectionMode">
-          <enum>QAbstractItemView::SingleSelection</enum>
+          <enum>QAbstractItemView::NoSelection</enum>
          </property>
          <property name="selectionBehavior">
-          <enum>QAbstractItemView::SelectItems</enum>
+          <enum>QAbstractItemView::SelectRows</enum>
          </property>
          <property name="movement">
           <enum>QListView::Static</enum>
