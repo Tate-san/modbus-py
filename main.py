@@ -139,9 +139,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.RegistersReadData.addItem(self.codes_item)
             self.RegistersReadName.addItem(self.names_item)
 
-        
-        
-
 
     def change_state(self, item):
         try:

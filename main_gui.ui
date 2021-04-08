@@ -612,19 +612,6 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
-        <widget class="QPushButton" name="LoadQueueButton">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Load</string>
-         </property>
-        </widget>
-       </item>
        <item row="3" column="0">
         <widget class="QPushButton" name="StartQueueButton">
          <property name="font">
@@ -635,19 +622,6 @@
          </property>
          <property name="text">
           <string>Start</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1" colspan="2">
-        <widget class="QPushButton" name="StopQueueButton">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Stop</string>
          </property>
         </widget>
        </item>
@@ -717,19 +691,6 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="1" colspan="2">
-        <widget class="QPushButton" name="SaveQueueButton">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Save</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="2" colspan="2">
         <widget class="QPushButton" name="PlayButton">
          <property name="font">
@@ -746,6 +707,55 @@ Pause</string>
          </property>
          <property name="autoDefault">
           <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QPushButton" name="StopQueueButton">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Stop</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <widget class="QPushButton" name="SaveQueueButton">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Save</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QPushButton" name="LoadQueueButton">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Load</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="pushButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Fix Error</string>
          </property>
         </widget>
        </item>
