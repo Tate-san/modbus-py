@@ -1,8 +1,5 @@
 ##TODO
-# MANUAL STATE CONTROLLING
 # WORKING QUEUE
-# EITHER GETTING DATA OR OVERWRITING EXISTING ONES
-# GUI IMPROVEMENTS
 
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
@@ -19,11 +16,14 @@ modbus = modbus.Connection()
 
 # Adds
 
-next = 9020
+bNext = 9020
 
-play = 7104     # Play/pause
-stop = 7105     # Stop
-error = 7201    # Error or Not
+bPlay = 7104     # Play/pause
+bStop = 7105     # Stop
+bSpeedup = 7106
+bSpeeddown = 7107
+bError = 7201    # Error or Not
+bState = 7102
 
 states_name = ['Init_Done', 'Op_Busy', 'Op_Done', 'Op_Error', 'Holder_Present', 'Init_Start', 'Op_Start', 'Op_Reset', 'Next']
 states_adds =  [9200,#Init done
@@ -34,7 +34,7 @@ states_adds =  [9200,#Init done
                 9000,#Init_Start
                 9010,#Op_Start
                 9011,#Op_Reset
-                next]#Next
+                bNext]#Next
                 
 codes_name = ['Dev_code', 'Op_Code', 'Op_Data1', 'Op_Data2', 'Op_Data3', 'Op_Data4', 'Op_Data5']
 codes_adds =   [9110,#Dev_code
@@ -82,10 +82,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.SetButton.clicked.connect(self.Set_Data)
         self.ExecuteButton.clicked.connect(self.Execute)
         self.NextButton.clicked.connect(self.Next)
-        self.PlayButton.clicked.connect(lambda: modbus.write_coil(7104, 1))
-        self.StopButton.clicked.connect(lambda: modbus.write_coil(7105, 1))
-        self.PlusButton.clicked.connect(lambda: modbus.write_coil(7106, 1))
-        self.MinusButton.clicked.connect(lambda: modbus.write_coil(7107, 1))
+        self.PlayButton.clicked.connect(lambda: modbus.write_coil(bPlay, 1))
+        self.StopButton.clicked.connect(lambda: modbus.write_coil(bStop, 1))
+        self.PlusButton.clicked.connect(lambda: modbus.write_coil(bSpeedup, 1))
+        self.MinusButton.clicked.connect(lambda: modbus.write_coil(bSpeeddown, 1))
         self.QueueButton.clicked.connect(self.Queue_Add)
         self.LoadQueueButton.clicked.connect(self.open_file)
         self.SaveQueueButton.clicked.connect(self.save_file)
@@ -102,9 +102,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             font = QtGui.QFont()
             font.setPointSize(12)
             self.state_item.setFont(font)
-            # Checkbox aint selectable
-            #self.state_item.setFlags(self.state_item.flags() ^ QtCore.Qt.ItemIsSelectable)
-            # Add item to widget list & add Checkbox  
+
             self.StateList.addItem(self.state_item)
             self.StateList.item(x).setCheckState(QtCore.Qt.Unchecked)
 
@@ -217,9 +215,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         
 
     def Next(self):
-        modbus.write_coil(next, True)
+        modbus.write_coil(bNext, True)
         time.sleep(.5)
-        modbus.write_coil(next, False)
+        modbus.write_coil(bNext, False)
     
 
     def reset_values(self):
@@ -280,10 +278,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.RunLabel.setProperty('text', 'Running')
         else:
             self.RunLabel.setProperty('text', 'Not Running')
-        if(modbus.read_coil(7201)):
+        if(modbus.read_coil(bError)):
             self.ErrLabel.setProperty('text', 'Error: 1')
         else:
             self.ErrLabel.setProperty('text', 'Error: 0')
+
+        if(modbus.read_coil(bState)):
+            self.bState.setProperty('text', 'State: A')
+        else:
+            self.bState.setProperty('text', 'State: M')
 
     # updating all functions using timer
     def update_functions(self):
@@ -312,7 +315,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         print('remove item')
 
 
-    def queue_action():
+    def queue_action(self):
 
         if self.queue:
             self.StartQueueButton.setProperty("enabled", False)
