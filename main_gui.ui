@@ -227,11 +227,14 @@
            <family>Icons</family>
           </font>
          </property>
+         <property name="minimum">
+          <number>5</number>
+         </property>
          <property name="maximum">
           <number>100</number>
          </property>
          <property name="value">
-          <number>0</number>
+          <number>5</number>
          </property>
         </widget>
        </item>
@@ -281,36 +284,6 @@
          <property name="selectionRectVisible">
           <bool>true</bool>
          </property>
-         <item>
-          <property name="text">
-           <string>Invalid operation</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>PickUp</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Place</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Tag read</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>IsEmpty</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Calibration</string>
-          </property>
-         </item>
         </widget>
        </item>
        <item row="1" column="5">
@@ -431,66 +404,6 @@
          <property name="selectionRectVisible">
           <bool>true</bool>
          </property>
-         <item>
-          <property name="text">
-           <string>Invalid Position</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Hotel</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Storage</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>ManLoadIN</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>LiquidHandling</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>FluorCam</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>HC1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>HC2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>ManLoadOUT</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Trash</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>SafetyPlace</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>LiquidHandling2</string>
-          </property>
-         </item>
         </widget>
        </item>
        <item row="7" column="1" colspan="2">

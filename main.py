@@ -5,6 +5,7 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import QTimer
 import mbus as modbus
+import jsonhandler as jhandler
 from threading import Thread, ThreadError
 import time
 
@@ -24,6 +25,9 @@ bSpeedup = 7106
 bSpeeddown = 7107
 bError = 7201    # Error or Not
 bState = 7102
+
+devices = jhandler.get_devices()
+operations = jhandler.get_operations()
 
 states_name = ['Init_Done', 'Op_Busy', 'Op_Done', 'Op_Error', 'Holder_Present', 'Init_Start', 'Op_Start', 'Op_Reset', 'Next']
 states_adds =  [9200,#Init done
@@ -95,22 +99,22 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.InitStartButton.clicked.connect(lambda: modbus.write_coil(9000, 1))
 
         # Initialize Robot States
-        for x in range(len(states_name)):
+        for item in range(len(states_name)):
             # Create new item for widgetlist
-            self.state_item = QtWidgets.QListWidgetItem(states_name[x])
+            self.state_item = QtWidgets.QListWidgetItem(states_name[item])
             # Set font size
             font = QtGui.QFont()
             font.setPointSize(12)
             self.state_item.setFont(font)
 
             self.StateList.addItem(self.state_item)
-            self.StateList.item(x).setCheckState(QtCore.Qt.Unchecked)
+            self.StateList.item(item).setCheckState(QtCore.Qt.Unchecked)
 
         # Initialize robot Registers
-        for x in range(len(codes_name)):
+        for item in range(len(codes_name)):
             # Create new item for widgetlist
             self.codes_item = QtWidgets.QListWidgetItem('0')
-            self.names_item = QtWidgets.QListWidgetItem(codes_name[x])
+            self.names_item = QtWidgets.QListWidgetItem(codes_name[item])
             self.code_name_item = QtWidgets.QListWidgetItem('')
             # Set font size
             font = QtGui.QFont()
@@ -124,10 +128,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.RegistersName.addItem(self.names_item)
 
         # Initialize robot read registers
-        for x in range(len(read_codes_name)):
+        for item in range(len(read_codes_name)):
             # Create new item for widgetlist
             self.codes_item = QtWidgets.QListWidgetItem('0')
-            self.names_item = QtWidgets.QListWidgetItem(read_codes_name[x])
+            self.names_item = QtWidgets.QListWidgetItem(read_codes_name[item])
             # Set font size
             font = QtGui.QFont()
             font.setPointSize(12)
@@ -136,6 +140,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             # Add item to widget list 
             self.RegistersReadData.addItem(self.codes_item)
             self.RegistersReadName.addItem(self.names_item)
+
+        # Load devices from config
+        for item in devices:
+            self.device_item = QtWidgets.QListWidgetItem(item['Name'])
+            self.DeviceCode.addItem(self.device_item)
+
+        # Load operations from config
+        for item in operations:
+            self.operation_item = QtWidgets.QListWidgetItem(item['Name'])
+            self.OpCode.addItem(self.operation_item)
+            
 
 
     def change_state(self, item):
@@ -283,7 +298,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         else:
             self.ErrLabel.setProperty('text', 'Error: 0')
 
-        if(modbus.read_coil(bState)):
+        if(modbus.read_input_registers(bState)):
             self.bState.setProperty('text', 'State: A')
         else:
             self.bState.setProperty('text', 'State: M')
