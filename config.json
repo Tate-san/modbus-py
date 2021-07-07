@@ -1,0 +1,78 @@
+{
+    "devices": [
+        {
+            "Name": "Invalid Position",
+            "ID": 0
+        },
+        {
+            "Name": "Hotel",
+            "ID": 1
+        },
+        {
+            "Name": "Storage",
+            "ID": 2
+        },
+        {
+            "Name": "ManLoadIN",
+            "ID": 3
+        },
+        {
+            "Name": "Liquid Handling",
+            "ID": 4
+        },
+        {
+            "Name": "FluorCam",
+            "ID": 5
+        },
+        {
+            "Name": "HC1",
+            "ID": 6
+        },
+        {
+            "Name": "HC2",
+            "ID": 7
+        },
+        {
+            "Name": "ManLoadOUT",
+            "ID": 8
+        },
+        {
+            "Name": "Trash",
+            "ID": 9
+        },
+        {
+            "Name": "Safety Place",
+            "ID": 10
+        },
+        {
+            "Name": "Liquid Handling 2",
+            "ID": 11
+        }
+    ],
+    "operations": [
+        {
+            "Name": "Invalid Operation",
+            "ID": 0
+        },
+        {
+            "Name": "Pick up",
+            "ID": 1
+        },
+        {
+            "Name": "Place",
+            "ID": 2
+        },
+        {
+            "Name": "Tag Read",
+            "ID": 3
+        },
+        {
+            "Name": "Is Empty",
+            "ID": 4
+        },
+        {
+            "Name": "Calibration",
+            "ID": 5
+        }
+    ]
+}
