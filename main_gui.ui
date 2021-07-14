@@ -125,37 +125,49 @@
        <string>Data</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_13">
-       <item row="3" column="6" rowspan="2">
-        <widget class="QSpinBox" name="OpData4">
+       <item row="0" column="5">
+        <widget class="QLabel" name="HotelLabel">
          <property name="font">
           <font>
            <family>Icons</family>
           </font>
          </property>
-         <property name="maximum">
-          <number>10000</number>
-         </property>
-         <property name="value">
-          <number>0</number>
+         <property name="text">
+          <string>Hotel</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="6">
-        <widget class="QSpinBox" name="OpData3">
+       <item row="10" column="4">
+        <widget class="QPushButton" name="NextButton">
          <property name="font">
           <font>
            <family>Icons</family>
+           <pointsize>10</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
           </font>
          </property>
-         <property name="maximum">
-          <number>10000</number>
-         </property>
-         <property name="value">
-          <number>0</number>
+         <property name="text">
+          <string>Next</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="5" rowspan="3">
+       <item row="10" column="5">
+        <widget class="QPushButton" name="QueueButton">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+           <pointsize>10</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Queue</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="5" rowspan="3">
         <widget class="QListWidget" name="OpData2">
          <property name="font">
           <font>
@@ -174,34 +186,48 @@
          <property name="selectionRectVisible">
           <bool>true</bool>
          </property>
-         <item>
-          <property name="text">
-           <string>0</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>3</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>4</string>
-          </property>
-         </item>
         </widget>
        </item>
-       <item row="2" column="5" rowspan="2">
+       <item row="3" column="6">
+        <widget class="QSpinBox" name="OpData4">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+          </font>
+         </property>
+         <property name="maximum">
+          <number>10000</number>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="6">
+        <widget class="QLabel" name="GrabLabel">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>Grab Height</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="DeviceLabel">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>Device Code</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="5" rowspan="2">
         <widget class="QLabel" name="DrawerLabel">
          <property name="text">
           <string>Drawer</string>
@@ -220,52 +246,75 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="6">
-        <widget class="QSpinBox" name="OpData5">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-          </font>
-         </property>
-         <property name="minimum">
-          <number>5</number>
-         </property>
+       <item row="10" column="6">
+        <widget class="QSpinBox" name="OpData6">
          <property name="maximum">
-          <number>100</number>
-         </property>
-         <property name="value">
-          <number>5</number>
+          <number>500</number>
          </property>
         </widget>
        </item>
-       <item row="2" column="6">
-        <widget class="QLabel" name="GrabLabel">
+       <item row="1" column="0" rowspan="8" colspan="2">
+        <widget class="QListWidget" name="DeviceCode">
          <property name="font">
           <font>
            <family>Icons</family>
           </font>
          </property>
-         <property name="text">
-          <string>Grab Height</string>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectItems</enum>
+         </property>
+         <property name="movement">
+          <enum>QListView::Static</enum>
+         </property>
+         <property name="selectionRectVisible">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="7" column="4">
-        <widget class="QPushButton" name="NextButton">
+       <item row="10" column="3">
+        <widget class="QPushButton" name="InitStartButton">
          <property name="font">
           <font>
            <family>Icons</family>
            <pointsize>10</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
           </font>
          </property>
          <property name="text">
-          <string>Next</string>
+          <string>Init_Start</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="2" rowspan="6" colspan="3">
+       <item row="1" column="6">
+        <widget class="QSpinBox" name="OpData3">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+          </font>
+         </property>
+         <property name="maximum">
+          <number>10000</number>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2" colspan="3">
+        <widget class="QLabel" name="OperationLabel">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>Operation</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2" rowspan="8" colspan="3">
         <widget class="QListWidget" name="OpCode">
          <property name="font">
           <font>
@@ -283,6 +332,21 @@
          </property>
          <property name="selectionRectVisible">
           <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="1" colspan="2">
+        <widget class="QPushButton" name="SetButton">
+         <property name="font">
+          <font>
+           <family>Icons</family>
+           <pointsize>10</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Set Data</string>
          </property>
         </widget>
        </item>
@@ -305,72 +369,9 @@
          <property name="selectionRectVisible">
           <bool>true</bool>
          </property>
-         <item>
-          <property name="text">
-           <string>0</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
         </widget>
        </item>
-       <item row="0" column="5">
-        <widget class="QLabel" name="HotelLabel">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>Hotel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="6">
-        <widget class="QLabel" name="AddLabel">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>Speed [%]</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2" colspan="3">
-        <widget class="QLabel" name="OperationLabel">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>Operation</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="DeviceLabel">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>Device Code</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0">
+       <item row="10" column="0">
         <widget class="QPushButton" name="ExecuteButton">
          <property name="font">
           <font>
@@ -385,67 +386,40 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0" rowspan="6" colspan="2">
-        <widget class="QListWidget" name="DeviceCode">
+       <item row="6" column="6">
+        <widget class="QLabel" name="AddLabel">
          <property name="font">
           <font>
            <family>Icons</family>
-          </font>
-         </property>
-         <property name="selectionMode">
-          <enum>QAbstractItemView::SingleSelection</enum>
-         </property>
-         <property name="selectionBehavior">
-          <enum>QAbstractItemView::SelectItems</enum>
-         </property>
-         <property name="movement">
-          <enum>QListView::Static</enum>
-         </property>
-         <property name="selectionRectVisible">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="1" colspan="2">
-        <widget class="QPushButton" name="SetButton">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-           <pointsize>10</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
           </font>
          </property>
          <property name="text">
-          <string>Set Data</string>
+          <string>Speed [%]</string>
          </property>
         </widget>
        </item>
-       <item row="7" column="5">
-        <widget class="QPushButton" name="QueueButton">
+       <item row="7" column="6">
+        <widget class="QSpinBox" name="OpData5">
          <property name="font">
           <font>
            <family>Icons</family>
-           <pointsize>10</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
           </font>
          </property>
-         <property name="text">
-          <string>Queue</string>
+         <property name="minimum">
+          <number>5</number>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="value">
+          <number>5</number>
          </property>
         </widget>
        </item>
-       <item row="7" column="3">
-        <widget class="QPushButton" name="InitStartButton">
-         <property name="font">
-          <font>
-           <family>Icons</family>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
+       <item row="8" column="6">
+        <widget class="QLabel" name="PickLabel">
          <property name="text">
-          <string>Init_Start</string>
+          <string>Pick Height</string>
          </property>
         </widget>
        </item>

@@ -74,5 +74,61 @@
             "Name": "Calibration",
             "ID": 5
         }
+    ],
+    "hotels": [
+        {
+            "count": 2
+        }
+    ],
+    "drawers": [
+        {
+            "count": 4
+        }
+    ],
+    "states": [
+        {
+            "Name": "Init done",
+            "Register": 9210
+        },
+        {
+            "Name": "Op_Busy",
+            "Register": 9211
+        },
+        {
+            "Name": "Op_Done",
+            "Register": 9212
+        },
+        {
+            "Name": "Op_Error",
+            "Register": 9212
+        },
+        {
+            "Name": "Holder Present",
+            "Register": 9220
+        },
+        {
+            "Name": "Init Start",
+            "Register": 9000
+        },
+        {
+            "Name": "Op_Start",
+            "Register": 9010
+        },
+        {
+            "Name": "Init done",
+            "Register": 9011
+        },
+        {
+            "Name": "Init done",
+            "Register": 9020
+        }
+
+    ],
+    "registers": [
+
+    ],
+    "read_registers": [
+
     ]
+
 }

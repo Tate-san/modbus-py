@@ -15,10 +15,10 @@ Ui_MainWindow, QtBaseClass = uic.loadUiType('main_gui.ui')
 client = modbus.Connection().client
 modbus = modbus.Connection()
 
+bConnected = False
+
 # Adds
-
 bNext = 9020
-
 bPlay = 7104     # Play/pause
 bStop = 7105     # Stop
 bSpeedup = 7106
@@ -28,26 +28,30 @@ bState = 7102
 
 devices = jhandler.get_devices()
 operations = jhandler.get_operations()
+hotel_count = jhandler.get_count('hotels')
+drawer_count = jhandler.get_count('drawers')
 
 states_name = ['Init_Done', 'Op_Busy', 'Op_Done', 'Op_Error', 'Holder_Present', 'Init_Start', 'Op_Start', 'Op_Reset', 'Next']
 states_adds =  [9200,#Init done
                 9210,#Op_Busy
                 9211,#Op_Done
-                9212,#Op_Error 
+                9212,#Op_Error bConnected:
+           
                 9220,#Holder_Present
                 9000,#Init_Start
                 9010,#Op_Start
                 9011,#Op_Reset
                 bNext]#Next
                 
-codes_name = ['Dev_code', 'Op_Code', 'Op_Data1', 'Op_Data2', 'Op_Data3', 'Op_Data4', 'Op_Data5']
+codes_name = ['Dev_code', 'Op_Code', 'Op_Data1', 'Op_Data2', 'Op_Data3', 'Op_Data4', 'Op_Data5', 'Op_Data5']
 codes_adds =   [9110,#Dev_code
                 9111,#Op_Code
                 9112,#Op_Data1
                 9113,#Op_Data2 
                 9114,#Op_Data3
                 9115,#Op_Data4
-                9116]#Op_Data5
+                9116,#Op_Data5
+                9117]#Op_Data6
 
 read_codes_name = ['Op_ErrorID', 'Op_Data_Read_1', 'Op_Data_Read_2', 'Op_Data_Read_3', 'Op_Data_Read_4', 'Op_Data_Read_5', 'Holder_ID']
 read_codes_adds =  [9310,#Op_ErrorID
@@ -150,8 +154,16 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         for item in operations:
             self.operation_item = QtWidgets.QListWidgetItem(item['Name'])
             self.OpCode.addItem(self.operation_item)
-            
+        
+        # Get hotel count
+        for x in range(hotel_count+1):
+            self.count = QtWidgets.QListWidgetItem(str(x))
+            self.OpData1.addItem(self.count)
 
+        # Get drawer count
+        for x in range(drawer_count+1):
+            self.count = QtWidgets.QListWidgetItem(str(x))
+            self.OpData2.addItem(self.count)
 
     def change_state(self, item):
         try:
@@ -191,7 +203,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     # Connect button
     def connection(self):
-        # closes connection, sets new address
         modbus.disconnect()
         self.ip = self.ipText.property('text')
         self.port = self.PortText.property('value')
@@ -201,12 +212,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.updater.start()
             self.ConnectionStatus.setProperty('text', 'CONNECTED')
             self.ConnectButton.setProperty('text', 'Disconnect')
+            return True
 
         else:
             self.updater.stop()
+            self.reset_values()
             self.ConnectionStatus.setProperty('text', 'DISCONNECTED')
             self.ConnectButton.setProperty('text', 'Connect')
-            self.reset_values()
+            return False
 
 
     def Set_Queue_Flag(self, state):
@@ -219,7 +232,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def Set_Data(self):
         # save data to array
         codes = [self.DeviceCode.currentRow(), self.OpCode.currentRow(), self.OpData1.currentRow(), self.OpData2.currentRow(),
-        str(self.OpData3.property('value')), str(self.OpData4.property('value')), str(self.OpData5.property('value'))]
+        str(self.OpData3.property('value')), str(self.OpData4.property('value')), str(self.OpData5.property('value')), str(self.OpData6.property('value'))]
         # array data to registers
         for x in range(len(codes)):
             modbus.int_to_register(codes_adds[x], int(codes[x]))
@@ -284,11 +297,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.RegistersReadData.item(len(read_codes_adds)).setText(str(modbus.read_string(9400,20)))
 
     def controls_state(self):
+        # ROBOT SPEED
         read_speed = modbus.read_input_registers(7101) 
-
         if(read_speed != self.SpeedDisplay.property('value')):
             self.SpeedDisplay.setProperty('value', read_speed)
 
+        # ROBOT STATUS
         if(modbus.read_coil(7202)):
             self.RunLabel.setProperty('text', 'Running')
         else:
@@ -298,11 +312,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         else:
             self.ErrLabel.setProperty('text', 'Error: 0')
 
-        if(modbus.read_input_registers(bState)):
+        # ROBOT MODE
+        if(modbus.read_input_registers(bState) == 1):
             self.bState.setProperty('text', 'State: A')
-        else:
+        elif(modbus.read_input_registers(bState) == 2):
             self.bState.setProperty('text', 'State: M')
-
+        else:
+            self.bState.setProperty('text', 'State:')
+            
     # updating all functions using timer
     def update_functions(self):
         try:
@@ -315,8 +332,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.connection()
 
     def contextMenuEvent(self, event):
-        #print(wevent.pos())
-        #print(QtWidgets.QWidget().widgetAt(event.pos()))
         contextMenu = QtWidgets.QMenu(self)
         removeAction = QtWidgets.QAction ("Remove", triggered = self.remove_item)
         clearAction = QtWidgets.QAction ("Clear", triggered = lambda: self.QueueList.clear())
@@ -331,12 +346,18 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
     def queue_action(self):
-
+        # queue enabled
         if self.queue:
             self.StartQueueButton.setProperty("enabled", False)
             self.LoadQueueButton.setProperty("enabled", False)
-            if modbus.client.read_discrete_inputs(7202, 1)[0]:
-                pass
+            # is connected
+            if self.connection():
+                # is running
+                if modbus.client.read_discrete_inputs(7202, 1)[0]:    
+                    pass
+        else:
+            self.StartQueueButton.setProperty("enabled", True)
+            self.LoadQueueButton.setProperty("enabled", True)
 
 # showing window
 if __name__ == "__main__":

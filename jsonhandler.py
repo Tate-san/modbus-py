@@ -64,5 +64,12 @@ def get_devices() -> list:
         devices.append(item)
     return devices
 
+def get_count(name: str):
+    _json_read = _read_cfg()
+    try:
+        return _json_read[name][0]['count']
+    except Exception as ex:
+        print(ex)
+
 if(__name__ == '__main__'):
-    pass
+    print(get_count('drawers'))
