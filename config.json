@@ -13,7 +13,7 @@
             "ID": 2
         },
         {
-            "Name": "ManLoadIN",
+            "Name": "Lid Storage",
             "ID": 3
         },
         {
@@ -37,7 +37,7 @@
             "ID": 8
         },
         {
-            "Name": "Trash",
+            "Name": "Disposal",
             "ID": 9
         },
         {
@@ -77,7 +77,7 @@
     ],
     "hotels": [
         {
-            "count": 2
+            "count": 3
         }
     ],
     "drawers": [
@@ -88,15 +88,15 @@
     "states": [
         {
             "Name": "Init done",
-            "Register": 9210
+            "Register": 9200
         },
         {
             "Name": "Op_Busy",
-            "Register": 9211
+            "Register": 9210
         },
         {
             "Name": "Op_Done",
-            "Register": 9212
+            "Register": 9211
         },
         {
             "Name": "Op_Error",
@@ -115,20 +115,76 @@
             "Register": 9010
         },
         {
-            "Name": "Init done",
+            "Name": "Op_Reset",
             "Register": 9011
         },
         {
-            "Name": "Init done",
+            "Name": "Next",
             "Register": 9020
         }
-
     ],
     "registers": [
-
+        {
+            "Name": "Dev_Code",
+            "ID": 9110
+        },
+        {
+            "Name": "Op_Code",
+            "ID": 9111
+        },
+        {
+            "Name": "Op_Data1",
+            "ID": 9112
+        },
+        {
+            "Name": "Op_Data2",
+            "ID": 9113
+        },
+        {
+            "Name": "Op_Data3",
+            "ID": 9114
+        },
+        {
+            "Name": "Op_Data4",
+            "ID": 9115
+        },
+        {
+            "Name": "Op_Data5",
+            "ID": 9116
+        },
+        {
+            "Name": "Op_Data6",
+            "ID": 9117
+        }
     ],
     "read_registers": [
-
+        {
+            "Name": "Op_ErrorID",
+            "ID": 9310
+        },
+        {
+            "Name": "Op_Read_1",
+            "ID": 9311
+        },
+        {
+            "Name": "Op_Read_2",
+            "ID": 9312
+        },
+        {
+            "Name": "Op_Read_3",
+            "ID": 9313
+        },
+        {
+            "Name": "Op_Read_4",
+            "ID": 9314
+        },
+        {
+            "Name": "Op_Read_5",
+            "ID": 9315
+        },
+        {
+            "Name": "Holder_ID",
+            "ID": 9400
+        }
     ]
-
 }

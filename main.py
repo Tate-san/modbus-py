@@ -26,40 +26,42 @@ bSpeeddown = 7107
 bError = 7201    # Error or Not
 bState = 7102
 
+states = jhandler.get_states()
+registers = jhandler.get_setregisters()
+read_registers = jhandler.get_readregisters()
 devices = jhandler.get_devices()
 operations = jhandler.get_operations()
 hotel_count = jhandler.get_count('hotels')
 drawer_count = jhandler.get_count('drawers')
 
-states_name = ['Init_Done', 'Op_Busy', 'Op_Done', 'Op_Error', 'Holder_Present', 'Init_Start', 'Op_Start', 'Op_Reset', 'Next']
-states_adds =  [9200,#Init done
-                9210,#Op_Busy
-                9211,#Op_Done
-                9212,#Op_Error bConnected:
-           
-                9220,#Holder_Present
-                9000,#Init_Start
-                9010,#Op_Start
-                9011,#Op_Reset
-                bNext]#Next
+#states_name = ['Init_Done', 'Op_Busy', 'Op_Done', 'Op_Error', 'Holder_Present', 'Init_Start', 'Op_Start', 'Op_Reset', 'Next']
+#states_adds =  [9200,#Init done
+#                9210,#Op_Busy
+#                9211,#Op_Done
+#                9212,#Op_Error
+#                9220,#Holder_Present
+#                9000,#Init_Start
+#                9010,#Op_Start
+#                9011,#Op_Reset
+#                bNext]#Next
                 
-codes_name = ['Dev_code', 'Op_Code', 'Op_Data1', 'Op_Data2', 'Op_Data3', 'Op_Data4', 'Op_Data5', 'Op_Data5']
-codes_adds =   [9110,#Dev_code
-                9111,#Op_Code
-                9112,#Op_Data1
-                9113,#Op_Data2 
-                9114,#Op_Data3
-                9115,#Op_Data4
-                9116,#Op_Data5
-                9117]#Op_Data6
+#codes_name = ['Dev_code', 'Op_Code', 'Op_Data1', 'Op_Data2', 'Op_Data3', 'Op_Data4', 'Op_Data5', 'Op_Data5']
+#codes_adds =   [9110,#Dev_code
+#                9111,#Op_Code
+#                9112,#Op_Data1
+#                9113,#Op_Data2 
+#                9114,#Op_Data3
+#                9115,#Op_Data4
+#                9116,#Op_Data5
+#                9117]#Op_Data6
 
-read_codes_name = ['Op_ErrorID', 'Op_Data_Read_1', 'Op_Data_Read_2', 'Op_Data_Read_3', 'Op_Data_Read_4', 'Op_Data_Read_5', 'Holder_ID']
-read_codes_adds =  [9310,#Op_ErrorID
-                    9311,#Op_Data_Read_1
-                    9312,#Op_Data_Read_2 
-                    9313,#Op_Data_Read_3
-                    9314,#Op_Data_Read_4
-                    9315]#Op_Data_Read_5
+#read_codes_name = ['Op_ErrorID', 'Op_Data_Read_1', 'Op_Data_Read_2', 'Op_Data_Read_3', 'Op_Data_Read_4', 'Op_Data_Read_5', 'Holder_ID']
+#read_codes_adds =  [9310,#Op_ErrorID
+#                    9311,#Op_Data_Read_1
+#                    9312,#Op_Data_Read_2 
+#                    9313,#Op_Data_Read_3
+#                    9314,#Op_Data_Read_4
+#                    9315]#Op_Data_Read_5
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -71,8 +73,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         QtWidgets.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
+
+
         self.queue = False
-        
 
         # Select first item in lists
         self.DeviceCode.setCurrentRow(0)
@@ -88,6 +91,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.ConnectButton.clicked.connect(self.connection)
         self.updater.timeout.connect(self. update_functions)
         self.SetButton.clicked.connect(self.Set_Data)
+        self.GetButton.clicked.connect(self.Get_Data)
         self.ExecuteButton.clicked.connect(self.Execute)
         self.NextButton.clicked.connect(self.Next)
         self.PlayButton.clicked.connect(lambda: modbus.write_coil(bPlay, 1))
@@ -100,12 +104,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.StartQueueButton.clicked.connect(lambda: self.Set_Queue_Flag(True))
         self.StopQueueButton.clicked.connect(lambda: self.Set_Queue_Flag(False))
         self.StateList.itemClicked.connect(self.change_state)
-        self.InitStartButton.clicked.connect(lambda: modbus.write_coil(9000, 1))
 
         # Initialize Robot States
-        for item in range(len(states_name)):
+        for item in range(len(states)):
             # Create new item for widgetlist
-            self.state_item = QtWidgets.QListWidgetItem(states_name[item])
+            self.state_item = QtWidgets.QListWidgetItem(states[item]['Name'])
             # Set font size
             font = QtGui.QFont()
             font.setPointSize(12)
@@ -115,10 +118,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.StateList.item(item).setCheckState(QtCore.Qt.Unchecked)
 
         # Initialize robot Registers
-        for item in range(len(codes_name)):
+        for item in range(len(registers)):
             # Create new item for widgetlist
             self.codes_item = QtWidgets.QListWidgetItem('0')
-            self.names_item = QtWidgets.QListWidgetItem(codes_name[item])
+            self.names_item = QtWidgets.QListWidgetItem(registers[item]['Name'])
             self.code_name_item = QtWidgets.QListWidgetItem('')
             # Set font size
             font = QtGui.QFont()
@@ -132,10 +135,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.RegistersName.addItem(self.names_item)
 
         # Initialize robot read registers
-        for item in range(len(read_codes_name)):
+        for item in range(len(read_registers)):
             # Create new item for widgetlist
             self.codes_item = QtWidgets.QListWidgetItem('0')
-            self.names_item = QtWidgets.QListWidgetItem(read_codes_name[item])
+            self.names_item = QtWidgets.QListWidgetItem(read_registers[item]['Name'])
             # Set font size
             font = QtGui.QFont()
             font.setPointSize(12)
@@ -169,9 +172,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         try:
             index = self.StateList.indexFromItem(item).row()
             if item.checkState() > 0:
-                modbus.write_coil(states_adds[index], True)
+                modbus.write_coil(states[index]['Register'], True)
             else:
-                modbus.write_coil(states_adds[index], False)
+                modbus.write_coil(states[index]['Register'], False)
         
         except Exception as ex:
             print(ex)
@@ -234,29 +237,34 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         codes = [self.DeviceCode.currentRow(), self.OpCode.currentRow(), self.OpData1.currentRow(), self.OpData2.currentRow(),
         str(self.OpData3.property('value')), str(self.OpData4.property('value')), str(self.OpData5.property('value')), str(self.OpData6.property('value'))]
         # array data to registers
-        for x in range(len(codes)):
-            modbus.int_to_register(codes_adds[x], int(codes[x]))
+        for x in range(len(registers)):
+            modbus.int_to_register(registers[x]['ID'], int(codes[x]))
+
+    def Get_Data(self):
+        
+        for x in range (len(registers)):
+            print(modbus.register_to_int(registers[x]['ID']))
 
     def Execute(self):
         self.Set_Data()
-        modbus.write_coil(states_adds[6], True)
+        modbus.write_coil(states[6]['Register'], True)
         
 
     def Next(self):
-        modbus.write_coil(bNext, True)
+        modbus.write_coil(states[8]['Register'], True)
         time.sleep(.5)
-        modbus.write_coil(bNext, False)
+        modbus.write_coil(states[8]['Register'], False)
     
 
     def reset_values(self):
-        for i in range(len(states_name)):
+        for i in range(len(states)):
             self.StateList.item(i).setCheckState(QtCore.Qt.Unchecked)
         
-        for i in range(len(codes_name)):
+        for i in range(len(registers)):
             self.RegistersData.item(i).setText(str('0'))
             self.RegistersDataNames.item(i).setText('')
         
-        for i in range(len(read_codes_name)):
+        for i in range(len(read_registers)):
             self.RegistersReadData.item(i).setText(str('0'))
         
         self.RunLabel.setProperty('text', 'Not Running')
@@ -267,8 +275,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     # robot states 
     def robot_states(self):
         # Read states from robot
-        for i in range(len(states_adds)):
-            state = client.read_coils(states_adds[i]).bits[0]
+        for i in range(len(states)):
+            state = client.read_coils(states[i]['Register']).bits[0]
             if(state):
                 state = QtCore.Qt.Checked
             self.StateList.item(i).setCheckState(state)
@@ -277,8 +285,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def robot_data(self):
 
         # Read data from robot
-        for x in range(len(codes_adds)):
-            self.RegistersData.item(x).setText(str(modbus.register_to_int(codes_adds[x])))
+        for x in range(len(registers)):
+            self.RegistersData.item(x).setText(str(modbus.register_to_int(registers[x]['ID'])))
 
         self.RegistersDataNames.item(0).setText( self.DeviceCode.item(int(self.RegistersData.item(0).text())).text() )
         self.RegistersDataNames.item(1).setText( self.OpCode.item(int(self.RegistersData.item(1).text())).text() )
@@ -290,11 +298,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         
 
     def robot_read_data(self):
+        length = len(read_registers)-1
         # Read data robot just Read
-        for x in range(len(read_codes_adds)):
-            self.RegistersReadData.item(x).setText(str(modbus.register_to_int(read_codes_adds[x])))
+        for x in range(length):
+            self.RegistersReadData.item(x).setText(str(modbus.register_to_int(read_registers[x]['ID'])))
         # Reading holder ID
-        self.RegistersReadData.item(len(read_codes_adds)).setText(str(modbus.read_string(9400,20)))
+        self.RegistersReadData.item(length).setText(str(modbus.read_string(read_registers[length]['ID'],20)))
 
     def controls_state(self):
         # ROBOT SPEED

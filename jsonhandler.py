@@ -34,6 +34,36 @@ def add_device(name: str, id: int):
         _init_cfg()
         add_device(name, id)
 
+def add_setregisters(name: str, id: int):
+    try:
+        _read_json= _read_cfg()
+        for item in _read_json['registers']:
+            if(item['ID'] == id):
+                raise BaseException('Device with such ID already exists')
+        _read_json['registers'].append({
+            'Name': name,
+            'ID': id
+        })
+        _write_cfg(_read_json)
+    except JSONDecodeError:
+        _init_cfg()
+        add_setregisters(name, id)
+
+def add_readregisters(name: str, id: int):
+    try:
+        _read_json= _read_cfg()
+        for item in _read_json['read_registers']:
+            if(item['ID'] == id):
+                raise BaseException('Device with such ID already exists')
+        _read_json['read_registers'].append({
+            'Name': name,
+            'ID': id
+        })
+        _write_cfg(_read_json)
+    except JSONDecodeError:
+        _init_cfg()
+        add_readregisters(name, id)
+
 def add_operation(name: str, id: int):
     try:
         _read_json= _read_cfg()
@@ -55,6 +85,13 @@ def get_operations() -> list:
     for item in _json_read['operations']:
         operations.append(item)
     return operations
+
+def get_states() -> list:
+    _json_read = _read_cfg()
+    states = []
+    for item in _json_read['states']:
+        states.append(item)
+    return states
     
 
 def get_devices() -> list:
@@ -64,6 +101,20 @@ def get_devices() -> list:
         devices.append(item)
     return devices
 
+def get_readregisters() -> list:
+    _json_read = _read_cfg()
+    registers = []
+    for item in _json_read['read_registers']:
+        registers.append(item)
+    return registers
+
+def get_setregisters() -> list:
+    _json_read = _read_cfg()
+    registers = []
+    for item in _json_read['registers']:
+        registers.append(item)
+    return registers
+
 def get_count(name: str):
     _json_read = _read_cfg()
     try:
@@ -72,4 +123,4 @@ def get_count(name: str):
         print(ex)
 
 if(__name__ == '__main__'):
-    print(get_count('drawers'))
+    pass
